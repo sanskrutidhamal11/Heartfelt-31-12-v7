@@ -2,12 +2,13 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { HumanizationIntensity, HumanizationPersona, HumanizationPlatform, ReaderMood, RefineStyle, HumanizationVariations, Highlight, AIPattern } from "../types";
 
-const apiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY || process.env.API_KEY;
-const ai = new GoogleGenAI({ apiKey });
-
 export const detectAIPatterns = async (text: string): Promise<AIPattern[]> => {
   if (!text.trim()) return [];
+  
+  // Create a new GoogleGenAI instance right before making an API call to ensure it always uses the most up-to-date API key.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const systemInstruction = `You are an AI Detection Specialist. Identify up to 5 specific robotic hallmarks. Return JSON array of phrase/reason objects.`;
+  
   try {
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
@@ -49,6 +50,8 @@ export const humanizeText = async (
   }
 ): Promise<{ variations: HumanizationVariations; resonanceScores: Record<keyof HumanizationVariations, number>; highlights: Record<keyof HumanizationVariations, Highlight[]>; score: number; changes: string[]; integrityPass: boolean }> => {
   
+  // Create a new GoogleGenAI instance right before making an API call to ensure it always uses the most up-to-date API key.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const systemPrompt = `
 # HEARTFELT AI MASTER ENGINE v2.0
 ## HUMANIZATION & PERSONALIZATION PROTOCOLS
