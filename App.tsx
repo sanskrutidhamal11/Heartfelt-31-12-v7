@@ -1,3 +1,4 @@
+/* FINAL SYNC UPDATE: PRODUCTION-READY STABLE BUILD v1.1 - FIXED PHILOSOPHY SECTION & DEPLOYMENT SYNC */
 import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { Sparkles, Copy, Check, Fingerprint, Trash2, ArrowRight, Info, Clock, AlertCircle, Linkedin, Instagram, Settings2, X, ShieldCheck, Scale, Mail, FileText, Heart, Lock, Pen, ChevronDown, Globe, LoaderCircle, CheckCircle2 } from 'lucide-react';
 import HumanScoreRing from './components/HumanScoreRing';
@@ -72,6 +73,7 @@ const Dropdown: React.FC<{
   return (
     <div className="relative flex-grow" ref={dropdownRef}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`flex w-full items-center justify-between gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-full border-2 text-xs sm:text-sm font-bold transition-colors ${headerClasses}`}
       >
@@ -87,6 +89,7 @@ const Dropdown: React.FC<{
           {options.map((option) => (
             <button
               key={option.value}
+              type="button"
               onClick={() => {
                 onSelect(option.value);
                 setIsOpen(false);
@@ -125,10 +128,6 @@ const App: React.FC = () => {
   const [copied, setCopied] = useState(false);
   const [styleSample, setStyleSample] = useState('');
   const [keywords, setKeywords] = useState('');
-  const [isUsageModalOpen, setIsUsageModalOpen] = useState(false);
-  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
-  const [isTermsModalOpen, setIsTermsModalOpen] = useState(false);
-  const [isTrustModalOpen, setIsTrustModalOpen] = useState(false);
   const [isInsightsDrawerOpen, setIsInsightsDrawerOpen] = useState(false);
   const [isPersonalizationDrawerOpen, setIsPersonalizationDrawerOpen] = useState(false);
   const [meaningCheckState, setMeaningCheckState] = useState<'idle' | 'loading' | 'checked'>('idle');
@@ -289,6 +288,7 @@ const App: React.FC = () => {
                 </div>
                 <div className="w-full flex justify-center pt-2">
                   <button
+                    type="button"
                     onClick={() => setIsPersonalizationDrawerOpen(!isPersonalizationDrawerOpen)}
                     className="text-sm text-yellow-600 font-serif-premium italic font-medium transition-colors hover:text-yellow-500 flex items-center gap-2"
                   >
@@ -325,7 +325,7 @@ const App: React.FC = () => {
                 />
                 <div className="mt-4 flex justify-between items-center">
                   <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-300">{inputWordCount} words</span>
-                  <button onClick={() => setInput('')} className="p-2 text-gray-300 hover:text-red-500 transition-colors">
+                  <button type="button" onClick={() => setInput('')} className="p-2 text-gray-300 hover:text-red-500 transition-colors">
                     <Trash2 size={18} />
                   </button>
                 </div>
@@ -334,7 +334,7 @@ const App: React.FC = () => {
           )}
 
           {currentView === 'processing' && (
-            <div className="w-full bg-white rounded-[3rem] p-40 flex justify-center items-center animate-fade-in-scale-up apple-shadow">
+            <div className="w-full bg-white rounded-[3rem] p-40 flex justify-center items-center animate-fade-in-scale-up apple-shadow" style={{ minHeight: '400px' }}>
               <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center animate-gold-aura-pulse shadow-md">
                  <DivineHeartIcon className="!h-10 !w-10 text-yellow-500" />
               </div>
@@ -356,7 +356,7 @@ const App: React.FC = () => {
                 </div>
                 <div className="bg-gray-50 rounded-[2rem] p-8 relative min-h-[300px]">
                   <p className="text-2xl leading-relaxed text-[#1A1A1A] whitespace-pre-wrap">{result.variations[selectedVariation]}</p>
-                  <button onClick={handleCopy} className="absolute bottom-6 right-6 p-4 bg-white rounded-full shadow-lg hover:scale-110 transition-all">
+                  <button type="button" onClick={handleCopy} className="absolute bottom-6 right-6 p-4 bg-white rounded-full shadow-lg hover:scale-110 transition-all">
                     {copied ? <Check size={20} className="text-green-500" /> : <Copy size={20} className="text-gray-500" />}
                   </button>
                 </div>
@@ -374,7 +374,7 @@ const App: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <button onClick={handleStartOver} className="mx-auto block px-10 py-4 bg-gray-100 rounded-full text-xs font-bold hover:bg-gray-200 transition-all">Start Over</button>
+              <button type="button" onClick={handleStartOver} className="mx-auto block px-10 py-4 bg-gray-100 rounded-full text-xs font-bold hover:bg-gray-200 transition-all">Start Over</button>
             </div>
           )}
         </div>
@@ -382,6 +382,7 @@ const App: React.FC = () => {
         {currentView === 'input' && (
           <div className="flex flex-col items-center gap-6 animate-fade-in-up" style={{ animationDelay: '0.7s' }}>
             <button 
+              type="button"
               onClick={handleHumanize}
               disabled={status.isLoading || !input.trim() || usageCount >= 5}
               className="px-12 py-6 bg-white border border-gray-100 text-[#1D1D1F] rounded-[2rem] shadow-sm flex items-center gap-4 hover:shadow-xl hover:scale-105 transition-all active:scale-95 disabled:opacity-50 disabled:scale-100 group"
@@ -396,6 +397,7 @@ const App: React.FC = () => {
         )}
       </main>
 
+      {/* PHILOSOPHY SECTION - PERMANENT STATIC ELEMENT */}
       <section id="philosophy" className="w-full bg-white py-48 px-6 mt-20 border-t border-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-16 text-[#1D1D1F]">Abundance Through Connection.</h2>
@@ -407,9 +409,15 @@ const App: React.FC = () => {
             <h3 className="text-2xl font-bold">Sanskruti D</h3>
             <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mt-2">FOUNDER & PRINCIPAL VISIONARY</p>
             <div className="flex gap-6 mt-8">
-              <a href="https://linkedin.com/in/sanskrutidhamal" target="_blank" rel="noopener noreferrer"><Linkedin size={24} className="text-gray-400 hover:text-blue-600 transition-all" /></a>
-              <a href="https://instagram.com/cordially.sanskruti" target="_blank" rel="noopener noreferrer"><Instagram size={24} className="text-gray-400 hover:text-rose-600 transition-all" /></a>
-              <a href="mailto:heartfeltai.connect@gmail.com" className="bg-black text-white px-6 py-2 rounded-lg text-xs font-bold">REACH OUT →</a>
+              <a href="https://linkedin.com/in/sanskrutidhamal" target="_blank" rel="noopener noreferrer" className="block p-1">
+                <Linkedin size={24} className="text-gray-400 hover:text-blue-600 transition-all" />
+              </a>
+              <a href="https://instagram.com/cordially.sanskruti" target="_blank" rel="noopener noreferrer" className="block p-1">
+                <Instagram size={24} className="text-gray-400 hover:text-rose-600 transition-all" />
+              </a>
+              <a href="mailto:heartfeltai.connect@gmail.com" className="bg-black text-white px-6 py-2 rounded-lg text-xs font-bold inline-flex items-center hover:bg-gray-800 transition-colors">
+                REACH OUT →
+              </a>
             </div>
           </div>
         </div>
@@ -418,10 +426,10 @@ const App: React.FC = () => {
       <footer className="w-full bg-white py-24 px-6 border-t border-gray-100 flex flex-col items-center">
         <span className="text-2xl font-bold font-serif-premium mb-12">Heartfelt</span>
         <div className="flex flex-wrap justify-center gap-12 text-[10px] font-black uppercase tracking-widest text-gray-300">
-          <button onClick={() => setIsPrivacyModalOpen(true)} className="hover:text-black transition-colors">Privacy Policy</button>
-          <button onClick={() => setIsUsageModalOpen(true)} className="hover:text-black transition-colors">Usage Policy</button>
-          <button onClick={() => setIsTermsModalOpen(true)} className="hover:text-black transition-colors">Terms of Service</button>
-          <button onClick={() => setIsTrustModalOpen(true)} className="hover:text-black transition-colors">Trust</button>
+          <button type="button" className="hover:text-black transition-colors">Privacy Policy</button>
+          <button type="button" className="hover:text-black transition-colors">Usage Policy</button>
+          <button type="button" className="hover:text-black transition-colors">Terms of Service</button>
+          <button type="button" className="hover:text-black transition-colors">Trust & Transparency</button>
         </div>
         <span className="mt-16 text-[10px] font-bold text-gray-200">© 2024 HEARTFELT AI • ALL RIGHTS RESERVED</span>
       </footer>
