@@ -199,6 +199,7 @@ const App: React.FC = () => {
       setStatus(prev => ({ ...prev, isLoading: false, error: null }));
       setCurrentView('output');
     } catch (err: any) {
+      console.error("Simulation failed:", err);
       setStatus(prev => ({ ...prev, isLoading: false, error: err.message || "Simulation failed." }));
       setCurrentView('input');
     }
@@ -347,7 +348,7 @@ const App: React.FC = () => {
                   <h3 className="text-sm font-bold text-black tracking-wide">REFINED OUTPUT</h3>
                   <div className="flex gap-1 p-1 bg-gray-50 rounded-full">
                     {(['essential', 'storyteller', 'visionary'] as (keyof HumanizationVariations)[]).map(v => (
-                      <button key={v} onClick={() => setSelectedVariation(v)} className={`px-4 py-1.5 text-[10px] font-black rounded-full transition-all ${selectedVariation === v ? 'bg-white text-black shadow-sm' : 'text-gray-400'}`}>
+                      <button key={v} type="button" onClick={() => setSelectedVariation(v)} className={`px-4 py-1.5 text-[10px] font-black rounded-full transition-all ${selectedVariation === v ? 'bg-white text-black shadow-sm' : 'text-gray-400'}`}>
                         {v.toUpperCase()}
                       </button>
                     ))}
@@ -396,7 +397,6 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* PHILOSOPHY SECTION - PERMANENT STATIC ELEMENT */}
       <section id="philosophy" className="w-full bg-white py-48 px-6 mt-20 border-t border-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-16 text-[#1D1D1F]">Abundance Through Connection.</h2>

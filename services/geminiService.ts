@@ -3,10 +3,10 @@ import { HumanizationIntensity, HumanizationPersona, HumanizationPlatform, Reade
 
 export const detectAIPatterns = async (text: string): Promise<AIPattern[]> => {
   if (!text.trim()) return [];
-
+  
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const systemInstruction = `You are an AI Detection Specialist. Identify up to 5 specific robotic hallmarks. Return JSON array of phrase/reason objects.`;
-
+  
   try {
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
@@ -28,7 +28,13 @@ export const detectAIPatterns = async (text: string): Promise<AIPattern[]> => {
       },
     });
 
-    return JSON.parse(response.text || "[]");
+    // Manually extract text parts to avoid thoughtSignature warning
+    const rawText = response.candidates?.[0]?.content?.parts
+      ?.map(part => part.text)
+      .filter(t => typeof t === 'string')
+      .join('') || "[]";
+
+    return JSON.parse(rawText);
   } catch (error) {
     console.error("Detection failed:", error);
     return [];
@@ -106,7 +112,13 @@ OUTPUT: JSON including variations (essential, storyteller, visionary), highlight
       },
     });
 
-    const result = JSON.parse(response.text || "{}");
+    // Manually extract text parts to avoid thoughtSignature warning
+    const rawText = response.candidates?.[0]?.content?.parts
+      ?.map(part => part.text)
+      .filter(t => typeof t === 'string')
+      .join('') || "{}";
+
+    const result = JSON.parse(rawText);
     const finalPurify = (s: string) => (s || '').trim();
 
     return {
