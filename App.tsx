@@ -1,9 +1,8 @@
-/* FINAL SYNC UPDATE: PRODUCTION-READY STABLE BUILD v1.1 - FIXED PHILOSOPHY SECTION & DEPLOYMENT SYNC */
 import React, { useState, useCallback, useMemo, useRef, useEffect } from 'react';
-import { Sparkles, Copy, Check, Fingerprint, Trash2, ArrowRight, Info, Clock, AlertCircle, Linkedin, Instagram, Settings2, X, ShieldCheck, Scale, Mail, FileText, Heart, Lock, Pen, ChevronDown, Globe, LoaderCircle, CheckCircle2 } from 'lucide-react';
+import { Sparkles, Copy, Check, Fingerprint, Trash2, ArrowRight, AlertCircle, Linkedin, Instagram, Settings2, Heart, Lock, Pen, ChevronDown, Globe, LoaderCircle, CheckCircle2 } from 'lucide-react';
 import HumanScoreRing from './components/HumanScoreRing';
-import { detectAIPatterns, humanizeText } from './services/geminiService';
-import { HumanizationResult, ProcessingState, HumanizationIntensity, HumanizationPersona, HumanizationPlatform, ReaderMood, HumanizationVariations, AIPattern } from './types';
+import { humanizeText } from './services/geminiService';
+import { HumanizationResult, ProcessingState, HumanizationIntensity, HumanizationPersona, HumanizationPlatform, ReaderMood, HumanizationVariations } from './types';
 
 const MOOD_CONFIG: Record<ReaderMood, { icon: string, label: string, color: string, glow: string }> = {
   'Inspired': { icon: '😍', label: 'Inspired', color: 'bg-amber-50 text-amber-700 border-amber-100', glow: 'shadow-[0_0_20px_rgba(251,191,36,0.3)] border-amber-400/50' },
